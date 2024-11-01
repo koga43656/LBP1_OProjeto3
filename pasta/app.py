@@ -1,22 +1,22 @@
 from flask import Flask, render_template, request, redirect, url_for
-from controllers import koga
+from controlers import controler
 from models import filmes, sessoes
 
 app = Flask(__name__)
-app.register_blueprint(koga)
+app.register_blueprint(controler.koga)
 app.secret_key = 'senha super secreta'
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return 'Página não encontrada', 404
+    return 'Página não encontrad a', 404
 
 @app.errorhandler(401)
 def acesso_negado(error):
-    return 'Acesso negado!', 401
+    return 'Acesso negado', 401
 
 @app.before_request
 def b4_request():
-    if request.path == 'koga.login':
+    if request.endpoint == 'koga.login':
         return
     if not sessoes.existe('nome'):
         return redirect(url_for('koga.login'))
