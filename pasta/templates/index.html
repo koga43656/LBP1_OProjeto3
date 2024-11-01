@@ -1,13 +1,51 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <title>Igor</title>
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+</head>
+<body>
+    <h1>Bem-vindo {{ nome }}</h1>
+    <h1>Lista de Filmes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Título do Filme</th>
+                <th>Preço</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for f in filmes %}
+            <tr>
+                <td>{{ f.titulo }}</td>
+                <td>R$ {{ f.preco }}</td>
+                <td>
+                    <button><a href="{{ url_for('koga.add', id=f.id) }}">+</a></button>
+                    <button><a href="{{ url_for('koga.delete', id=f.id) }}">-</a></button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    <body>
+    <h1>Carrinho</h1>
+    <ul>
+    {% for item in carrinho %}
+        <li>{{ item.quantidade }}x {{ item.titulo }}: R$ {{ item.total }}</li>
+    {% endfor %}
+    </ul>
 
-        <h1>{{ok.soma}} </h1>
-
-    </body>
-
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        <h1>Avisos</h1>
+        <ul>
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+</body>
 </html>
