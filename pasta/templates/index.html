@@ -22,8 +22,8 @@
                 <td>{{ f.titulo }}</td>
                 <td>R$ {{ f.preco }}</td>
                 <td>
-                    <button><a href="{{ url_for('koga.add', id=f.id) }}">+</a></button>
-                    <button><a href="{{ url_for('koga.delete', id=f.id) }}">-</a></button>
+                    <button><a href="{{ url_for('koga.add', id=f.id) }}"> adicionar </a></button>
+                    <button><a href="{{ url_for('koga.delete', id=f.id) }}"> excluir </a></button>
                 </td>
             </tr>
         {% endfor %}
@@ -32,7 +32,7 @@
 
     <h1>Carrinho</h1>
     <ul>
-    {% for item in carrinho %}
+    {% for item in c %}
         <li>{{ item.quantidade }}x {{ item.titulo }}: R$ {{ item.total }}</li>
     {% endfor %}
     </ul>
